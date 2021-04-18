@@ -10,7 +10,7 @@ namespace EmployeeManagement.Web.Pages
 {
     public class EmployeeDetailsBase : ComponentBase
     {
-        public Employee Employee { get; set; } = new Employee();
+        public Employee Employee { get; set; }
 
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
