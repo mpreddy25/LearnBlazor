@@ -38,6 +38,22 @@ namespace EmployeeManagement.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EmployeeManagement.Api", Version = "v1" });
             });
+
+            var corsOrigins = Configuration["Cors:Origins"]?.Split(',')
+                .Select(e => e.Trim())
+                .Where(e => !string.IsNullOrEmpty(e))
+                .ToArray();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowSpecificOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins(corsOrigins)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +65,8 @@ namespace EmployeeManagement.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EmployeeManagement.Api v1"));
             }
+
+            app.UseCors("MyAllowSpecificOrigins");
 
             app.UseHttpsRedirection();
 
