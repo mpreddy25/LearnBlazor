@@ -31,7 +31,7 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'Publish build artifacts'
     publishLocation: 'Container'
-    StoreAsTar: true
+    StoreAsTar: false
 
 # - task: VSBuild@1
 #   inputs:
